@@ -1,0 +1,28 @@
+//Sketch created by Jacob Antoun
+//10/20/13
+//
+//Wiring Info:
+//Nothing is connected on the collector
+//Analog Pin# is connected to the Base
+//1K ohm resistor is connected to the Base, after the AnalogPin
+//Ground is connected to the Emitter
+//
+
+#define tempSensor A0 //Puts the LM355Z temperature sensor on anolog pin 0
+
+const float miniVoltsToKelvin = 0.004882812 * 100; //found this online, I don't remember the source :(
+
+void setup() {
+  Serial.begin(9600); //initialize the serial monitor
+}
+
+void loop() {
+  float kelvin;
+  float fahr;
+  kelvin = analogRead(tempSensor) * miniVoltsToKelvin; //converts the reading from the arduino into kelvin
+  fahr = 1.8 * (kelvin - 273) + 32; //converts the kelvin to fahrenheit
+  Serial.print(fahr); //prints to the serial monitor
+  Serial.print(" degrees");
+  Serial.println();
+  delay(1000);
+}
